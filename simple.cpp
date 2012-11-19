@@ -36,10 +36,12 @@ int main(int argc, char *argv[])
 	BIO* rsaprivate = BIO_new_file("rsaprivatekey.pem", "r");
 	RSA* priv = PEM_read_bio_RSAPrivateKey(rsaprivate, NULL, NULL, NULL);
 
-	char cipher_pri[128];
+	unsigned char cipher_pri[128];
 	unsigned char* sig = (unsigned char*) malloc(RSA_size(priv));
-	int ret = RSA_private_encrypt(EVP_MAX_MD_SIZE, (unsigned char*) mdbuf, (unsigned char*)cipher_pri, priv, RSA_PKCS1_PADDING);
-	cout << cipher_pri << endl;
+	int ret = RSA_private_encrypt(EVP_MAX_MD_SIZE, (unsigned char*) mdbuf, cipher_pri, priv, RSA_PKCS1_PADDING);
+	for(int i=0;i<EVP_MAX_MD_SIZE;i++)
+		cout << cipher_pri[i];
+	cout << endl;
 
 	//Chain on the input
 	BIO_push(hash, binfile);
