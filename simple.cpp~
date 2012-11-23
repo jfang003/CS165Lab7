@@ -34,14 +34,19 @@ int main(int argc, char *argv[])
 	char mdbuf[EVP_MAX_MD_SIZE];
 	int mdlen = BIO_gets(hash, mdbuf, EVP_MAX_MD_SIZE);
 	BIO* rsaprivate = BIO_new_file("rsaprivatekey.pem", "r");
-	RSA* priv = PEM_read_bio_RSAPrivateKey(rsaprivate, NULL, NULL, NULL);
+	RSA* priv = PEM_read_bio_RSAPrivateKey(rsaprivate, NULL, 0, NULL);
+	BIO* rsapublic = BIO_new_file("rsapublickey.pem", "r");
+	RSA* pub = PEM_read_bio_RSA_PUBKEY(rsapublic, NULL, 0, NULL);
 
-	char cipher_pri[128];
 	unsigned char* sig = (unsigned char*) malloc(RSA_size(priv));
-	int ret = RSA_private_encrypt(EVP_MAX_MD_SIZE, (unsigned char*) mdbuf, cipher_pri, priv, RSA_PKCS1_PADDING);
+	unsigned char* decrypt = (unsigned char*) malloc(RSA_size(priv));
+	int ret = RSA_private_encrypt(EVP_MAX_MD_SIZE, (unsigned char*) mdbuf, sig, priv, RSA_PKCS1_PADDING);
 	for(int i=0;i<EVP_MAX_MD_SIZE;i++)
-		cout << cipher_pri[i];
+		printf("%02x", sig[i] & 0xFF);
 	cout << endl;
+	
+	unsigned char* apdu_dig;
+	RSA_public_decrypt(EVP_MAX_MD_SIZE, sig, decrypt, pub, RSA_PKCS1_PADDING);
 
 	//Chain on the input
 	BIO_push(hash, binfile);
