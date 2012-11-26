@@ -1,27 +1,0 @@
-James
-
-To mark their territory and warn off rivals, 21st-century gangsters still depend on the street language of graffiti. “Graffiti is a big part of how gangs tell their story and pick their turf,” says Steven Schafer, a detective in the criminal gang unit of the Indianapolis Metropolitan Police Department. A new software program called GARI (Gang Graffiti Automatic Recognition and Interpretation) is now helping Schafer and other investigators decipher the scrawlings, monitor gang activity, and fight crime.
-
-GARI connects officers in the field with a searchable database of graffiti information and images snapped by cell phones and digital cameras. An officer can take a photo and submit it to an app, which tags it with location, date, and time. The software also scans the graffiti for distinguishing features, including color and shape. Officers can then enter queries into GARI to check for similar images logged within a certain area and derive local gang affiliation, territorial disputes, and even the identity of the members who left their mark.
-
-Because GARI is so new, Schafer and his team must manually tag many of the submitted photos to build up the app’s information bank. The program is also still honing its ability to identify graffiti on a variety of materials, from wood to dirty cement. But even in these early stages, more than a dozen police agencies in Indiana have signed up with the program. “The real challenge is acquiring and processing images,” says Edward Delp, an electrical and computer engineer developing GARI with researchers at Purdue University. “It’s not like reading a sign on the street—every image is different.” The photos displayed here have been fed into GARI as part of ongoing police investigations in Indianapolis. The app itself is not available to the public—including members of gangs who could use it to avoid getting caught.
-
-In early May, officer Steven Schafer snapped this picture of a vacant building conveniently located, for taggers’ purposes, in a dead-end alley near railroad tracks. Schafer keeps an eye on this spot since it reflects local gang activity at a school two blocks away. To keep tabs on new members looking to make a name for themselves, officers can manually annotate images in GARI to document taggers’ names. From there, linking real names to aliases and seeing where else the names show up can indicate where particular gang members operate or live.
-
-The stylized SS stands for South Side, a faction of the 18th Street gang based in southern Indianapolis. A rival gang sprayed red Xs over the work as a sign of disrespect.
-
-Government-sanctioned graffiti from the city’s Department of Public Works, in red, typically indicates  an abandoned building.
-
-This board has been flipped or replaced, presumably by a rival gang, and then signed by Lil’ Bam. Police are not sure who this tagger is but are tracking his spray painting via GARI.
-
-X8 ST (note the partial X on the leftmost panel) stands for 18th Street, a transnational gang founded in L.A. They clash with the Sureños, a California gang whose scrawls appear on the fence at right.
-
-Lil. Puppet is probably the mark of the gangbanger who drew the X8. Police know a Lil. Puppet not affiliated with X8. Either an X8 member adopted the alias or Lil. Puppet switched gangs.
-
-This dashboard, tagged in Wite-Out, marked a stolen car involved in a high-speed chase. The vehicle crashed at the intersection of E. Michigan and N. LaSalle with three people inside, now identified as suspected gang members. Using GARI, police officers unfamiliar with gang symbology can instantly look up the graffiti and avoid waiting for gang specialists such as Schafer to report to the scene.
-
-9, 7, and 4 denote I, G, and D, the 9th, 7th, and 4th letters of the alphabet, which stand for Insane Gangster Disciples, a faction of a Chicago gang. The star and forks also represent the parent gang. 360 symbolizes their all-encompassing knowledge. The triangle probably indicates a botched first attempt.
-
-These markings were found within two blocks of a December 2011 shooting in Indianapolis. Gang members, Schafer says, tend to spray graffiti and commit crimes in places they frequent and  feel comfortable, often close to home or school. In this case, GARI helped prove the presence of the Sureños Cut Throat gang in the neighborhood, thereby implying its involvement in the assault.
-
-Sureños Cut Throat (SCT) is a local offshoot of the Sureños gang, who admire the Mexican Mafia, a California prison gang. X3 translates to 13, representing M, the 13th letter of the alphabet.
