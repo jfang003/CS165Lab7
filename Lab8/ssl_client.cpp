@@ -126,6 +126,8 @@ int main(int argc, char** argv)
 	//PEM_read_bio_RSA_PUBKEY
 	//RSA_public_decrypt
 	//BIO_free
+
+	
 	
 	string generated_key="";
 	string decrypted_key="";

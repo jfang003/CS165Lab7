@@ -113,7 +113,7 @@ int main(int argc, char** argv)
 	// 3. Generate the SHA1 hash of the challenge
 	printf("3. Generating SHA1 hash...");
 
-	//BIO_new(BIO_s_mem());
+	BIO* mem = BIO_new(BIO_s_mem());//BIO_new(BIO_s_mem());
 	//BIO_write
 	//BIO_new(BIO_f_md());
 	//BIO_set_md;
@@ -157,6 +157,8 @@ int main(int argc, char** argv)
     //SSL_read
     char file[BUFFER_SIZE];
     memset(file,0,sizeof(file));
+		//buff_len = SSL_read(ssl, buff, BUFFER_SIZE);
+		//file = buff;
     printf("RECEIVED.\n");
     printf("    (File requested: \"%s\"\n", file);
 
