@@ -16,13 +16,15 @@ int main(int argc, char *argv[])
 	//  as easily be chained to the output BIO instead.
 
 	char infilename[] = "fang.txt";
-	char outfilename[] = "outfile.txt";
+	char outfilename[] = "DocOut.txt";
+	char out_hash[] = "hash-code-signature";
 
 	char* buffer[1024];
 
-	BIO *binfile, *boutfile, *hash;
+	BIO *binfile, *boutfile, *hash,*boutfile2;
 	binfile = BIO_new_file(infilename, "r");
 	boutfile = BIO_new_file(outfilename, "w") ;
+	boutfile2 = BIO_new_file(out_hash, "w") ;
 	hash = BIO_new(BIO_f_md());
 	BIO_set_md(hash, EVP_sha1());
 
@@ -60,17 +62,28 @@ int main(int argc, char *argv[])
 	int ret = RSA_private_encrypt(EVP_MAX_MD_SIZE, (unsigned char*) mdbuf, sig, priv, RSA_PKCS1_PADDING);
 	cout << "Encrypt: ";
 	for(int i=0;i<mdlen;i++)
+	{
 		printf("%02x", sig[i] & 0xFF);
+	}
 	cout << endl;
+
+	actualWritten = BIO_write(boutfile2, sig, mdlen);
 	
 	RSA_public_decrypt(ret, sig, decrypt, pub, RSA_PKCS1_PADDING);
 	cout << "Decrypt: ";
 	for(int i=0;i<mdlen;i++)
 		printf("%02x", decrypt[i] & 0xFF);
 	cout << endl;
+	binfile = BIO_new_file(infilename, "r");
+	while((actualRead = BIO_read(hash, buffer, 1024)) >= 1)
+	{
+		//Could send this to multiple chains from here
+		actualWritten = BIO_write(boutfile, buffer, actualRead);
+	}
 
 	
 	BIO_free_all(boutfile);
+	BIO_free_all(boutfile2);
 	BIO_free_all(hash);
 
 	return 0;
