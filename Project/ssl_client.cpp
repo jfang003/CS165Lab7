@@ -92,7 +92,7 @@ int main(int argc, char** argv)
 	// 2. Send the server a random number
 	printf("2.  Sending challenge to the server...");
     
-    string randomNumber="Hello";
+    string randomNumber="31337";
 	//SSL_write
 	int buff_len=0;
 	buff_len = SSL_write(ssl, randomNumber.c_str(), BUFFER_SIZE);
@@ -134,7 +134,7 @@ int main(int argc, char** argv)
 	BIO_set_md(hash, EVP_sha1());//BIO_set_md;
 	BIO_push(hash, mem);//BIO_push;
 	char mdbuf[EVP_MAX_MD_SIZE];
-	int mdlen = BIO_gets(hash, mdbuf, EVP_MAX_MD_SIZE);//BIO_gets;
+	int mdlen = BIO_read(hash, mdbuf, EVP_MAX_MD_SIZE);//BIO_gets;
 
 	BIO* rsapublic = BIO_new_file("rsapublickey.pem", "r");
 	RSA* pub = PEM_read_bio_RSA_PUBKEY(rsapublic, NULL, 0, NULL);
@@ -153,22 +153,39 @@ int main(int argc, char** argv)
 	// 4. Send the server a file request
 	printf("4.  Sending file request to server...");
 
+	char* buffer_s;
 	PAUSE(2);
-	//BIO_flush
-    //BIO_puts
-	//SSL_write
+	BIO_flush(client);
+  //BIO_puts(client, filename);
+	SSL_write(ssl, (unsigned char *)filename, BUFFER_SIZE);
 
     printf("SENT.\n");
 	printf("    (File requested: \"%s\")\n", filename);
 
     //-------------------------------------------------------------------------
 	// 5. Receives and displays the contents of the file requested
-	printf("5.  Receiving response from server...");
+	printf("5.  Receiving response from server...\n");
 
     //BIO_new_file
     //SSL_read
 	//BIO_write
 	//BIO_free
+	BIO* boutfile = BIO_new_file("DocOut.txt", "w") ;
+	int read_bytes = 0;
+	char buffer[1024];
+	while((read_bytes = SSL_read(ssl, buffer, BUFFER_SIZE))!=0)
+	{
+		if(read_bytes==-1)
+		{
+			printf("Error while reading file(ssl).\n");
+      print_errors();
+			exit(EXIT_FAILURE);
+		}
+		BIO_flush(client);
+		printf("%s\n", buffer);
+		BIO_write(boutfile, buffer, read_bytes);
+	}
+	BIO_free(boutfile);
 
 	printf("FILE RECEIVED.\n");
 
@@ -177,7 +194,15 @@ int main(int argc, char** argv)
 	printf("6.  Closing the connection...");
 
 	//SSL_shutdown
-	
+	int shutdown =0;
+	while(shutdown != 1)
+	{
+		if(shutdown==-1)
+		{
+			printf("ERROR.\n");
+		}
+		shutdown = SSL_shutdown(ssl);
+	}
 	printf("DONE.\n");
 	
 	printf("\n\nALL TASKS COMPLETED SUCCESSFULLY.\n");
