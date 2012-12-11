@@ -175,25 +175,26 @@ int main(int argc, char** argv)
 	//BIO_flush
 	BIO_flush(server);
 	//BIO_new_file
-	BIO* binfile = BIO_new_file(file, "r");
-	//BIO_puts(server, "fnf");
-	int reads = 0;
-	char buffer[1024];
-	memset(file,0,sizeof(buffer));
+	BIO* fileout = BIO_new_file(file, "r");
 	int bytesSent=0;
-  while((reads = BIO_read(binfile, buffer, BUFFER_SIZE)) > 0)
-	{	
-		BIO_flush(server);
-		printf("%s\n", buffer);
-		SSL_write(ssl, buffer, reads);
-		memset(file,0,sizeof(buffer));
-		bytesSent+=reads;
-	}
+	char buffer[65];
+	char encrypted[65];
+	memset(encrypted,0,sizeof(encrypted));
+	memset(buffer,0,sizeof(buffer));
+	int actualRead = 0;
+	int bytes_written = 0;
 
-    
-    
-    printf("    SENT.\n");
-    printf("    (Bytes sent: %d)\n", bytesSent);
+	while((actualRead = BIO_read(fileout,buffer,64))>=1)
+	{
+		ret = RSA_private_encrypt(actualRead,(unsigned char*)buffer,(unsigned char*)encrypted,priv,RSA_PKCS1_PADDING);
+
+		bytes_written = SSL_write(ssl,encrypted,ret);
+		bytesSent += bytes_written;
+		memset(buffer,0,sizeof(buffer));
+		memset(encrypted,0,sizeof(encrypted));
+	}
+	printf("SENT.\n");
+	printf(" (Bytes sent: %d)\n", bytesSent);
 
     //-------------------------------------------------------------------------
 	// 8. Close the connection
